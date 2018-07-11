@@ -10,7 +10,7 @@ server.use(bodyParser.json())
 server.use(allowCors)
 
 server.listen(port, function() {
-    console.log(`A mágica acontece na porta 3003.`)
+    console.log(`A mágica acontece na porta ${port}.`)
 })
 
 module.exports = server
