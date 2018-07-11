@@ -1,0 +1,21 @@
+{
+  "name": "compra-certa-backend",
+  "version": "1.0.0",
+  "description": "BACKEND - App Lista de Compras",
+  "main": "src/loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "production": "pm2 start src/loader.js --name compra-certa-backend"
+  },
+  "author": "Luiz Honorato",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.2",
+    "node-restful": "^0.2.6",
+    "nodemon": "^1.18.0",
+    "pm2": "^3.0.0"
+  }
+}
