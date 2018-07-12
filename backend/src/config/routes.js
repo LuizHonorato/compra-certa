@@ -7,6 +7,6 @@ module.exports = function(server) {
     server.use('/api', router)
 
     //Rotas do negócio
-    const productService = require('../api/product/productService')
-    productService.register(router, '/products')
+    const shopListService = require('../api/shopList/shopListService')
+    shopListService.register(router, '/shop-list')
 }

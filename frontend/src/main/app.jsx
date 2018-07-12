@@ -1,10 +1,10 @@
-import '../common/template/dependencies'
-
 import React from 'react'
-import ProductList from '../productsList/productList'
+import TopBar from '../common/template/appBar'
+import Products from '../shopList/products'
 
 export default props => (
-
-        <ProductList />
-
+        <div className='container'>
+           <TopBar />
+           <Products />
+        </div>
 )

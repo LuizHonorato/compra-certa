@@ -7,4 +7,9 @@ const productSchema = new mongoose.Schema({
     is_promotion: {type: Boolean, default: false}
 })
 
-module.exports = restful.model('Product', productSchema)
+const shopListSchema = new mongoose.Schema({
+    name_list: {type: String, required: true},
+    products: [productSchema]
+})
+
+module.exports = restful.model('ShopList', shopListSchema)
