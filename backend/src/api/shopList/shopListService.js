@@ -6,11 +6,20 @@ ShopList.updateOptions({new: true, runValidators: true})
 ShopList.after('post', errorHandler).after('put', errorHandler)
 
 ShopList.route('total', (req, res, next) => {
-    ShopList.aggregate([
-        {
-            $project: {total: {$sum: "$products.price"}}
+    ShopList.aggregate([{
+        $project: {total: {$sum: "$products.price"}}
+    }, {
+        $group: {_id: null, total: {$sum: "$total"}}
+    }, {
+        $project: {_id: 0, total: 1}
+    }
+    ]).exec((error, result) => {
+        if(error) {
+            res.status(500).json({errors: [error]})
+        } else {
+            res.json(result[0] || {total: 0})
         }
-    ])   
+    })
 })
 
 module.exports = ShopList

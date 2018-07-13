@@ -3,7 +3,7 @@ const mongoose = restful.mongoose
 
 const productSchema = new mongoose.Schema({
     description: {type: String, required: true},
-    price: {type: Number , required: true},
+    price: {type: Number, min: 0.00, required: true},
     is_promotion: {type: Boolean, default: false}
 })
 
