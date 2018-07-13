@@ -9,15 +9,13 @@ ShopList.route('total', (req, res, next) => {
     ShopList.aggregate([{
         $project: {total: {$sum: "$products.price"}}
     }, {
-        $group: {_id: null, total: {$sum: "$total"}}
-    }, {
-        $project: {_id: 0, total: 1}
+        $group: {_id: "$_id", total: {$sum: "$total"}}
     }
     ]).exec((error, result) => {
         if(error) {
             res.status(500).json({errors: [error]})
         } else {
-            res.json(result[0] || {total: 0})
+            res.json(result || {total: 0})
         }
     })
 })
