@@ -9,14 +9,14 @@ import ProductList from './productList'
 
 const styles = {
   root: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
   
 };
 
 function TabContainer(props) {
     return (
-      <Typography component="div" style={{ padding: 8 * 3 }}>
+      <Typography component="div" style={{ padding: 8 * 3, height: 450 }}>
         {props.children}
       </Typography>
     );
@@ -44,7 +44,7 @@ class TabMenu extends React.Component {
           textColor="secondary"
           centered
         >
-          <Tab label="Produtos" />
+          <Tab label="Minhas listas" />
           <Tab label="Listas de compras" />
           <Tab label="Pedidos" />
         </Tabs>
