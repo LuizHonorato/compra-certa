@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import ProductList from './productList'
+import ProductForm from './productForm'
 
 const styles = {
   root: {
@@ -44,13 +44,11 @@ class TabMenu extends React.Component {
           textColor="secondary"
           centered
         >
-          <Tab label="Minhas listas" />
-          <Tab label="Listas de compras" />
-          <Tab label="Pedidos" />
+          <Tab label="Incluir produtos" />
+          <Tab label="Meu carrinho" />
         </Tabs>
-        {value === 0 && <TabContainer><ProductList /></TabContainer>}
+        {value === 0 && <TabContainer><ProductForm /></TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
       </Paper>
     );
   }
