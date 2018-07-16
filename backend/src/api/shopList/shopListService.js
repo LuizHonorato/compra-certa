@@ -10,6 +10,8 @@ ShopList.route('total', (req, res, next) => {
         $project: {total: {$sum: "$products.price"}}
     }, {
         $group: {_id: "$_id", total: {$sum: "$total"}}
+    }, {
+        $project: {_id: 1, total: 1}
     }
     ]).exec((error, result) => {
         if(error) {

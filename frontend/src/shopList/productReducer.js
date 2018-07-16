@@ -1,9 +1,11 @@
-const initialState = {
-    products: ["Arroz", "Feijão", "Leite", "Carne", "Pão", "Ovos", "Cereal", "Cerveja", "Macarrão", "Biscoito",
-"Suco em pó", "Legumes", "Sabonete", "Sabão em pó", "Detergente", "Sal", "Açucar", "Manteiga", "Maçã", "Goiabada"]}
+const initialState = {list: [], total: 0}
 
-export default function shoplists(state = initialState, action) {
+export default (state = initialState, action) => {
     switch (action.type) {
+        case 'SHOP_LIST_FETCHED':
+            return {...state, list: action.payload.data}
+        case 'TOTAL_FETCHED':
+            return {...state, total: action.payload.data}
         default:
             return state
     }

@@ -3,13 +3,14 @@ const mongoose = restful.mongoose
 
 const productSchema = new mongoose.Schema({
     description: {type: String, required: true},
-    price: {type: Number, min: 0.00, required: true},
-    is_promotion: {type: Boolean, default: false}
+    price: {type: Number, min: 0.00, required: true}
 })
 
 const shopListSchema = new mongoose.Schema({
     name_list: {type: String, required: true},
-    products: [productSchema]
+    products: [productSchema],
+    total: {type: Number, min: 0.00, default: 0.00},
+    createdAt: {type: Date, default: Date.now}
 })
 
 module.exports = restful.model('ShopList', shopListSchema)
