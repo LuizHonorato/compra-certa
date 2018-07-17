@@ -1,12 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
+import {post} from './productActions'
 
 const styles = theme => ({
   root: {
@@ -37,14 +40,29 @@ const styles = theme => ({
   }
 });
 
-function ProductForm(props) {
-  const { classes } = props;
+const ProductForm = ({classes, dispatch}) => {
+  
+  let description
+  let price
 
   return (
-    <div className={classes.root}>
+    <form className={classes.root}
+        onSubmit={e => {
+          e.preventDefault()
+          if(!description.value.trim() || !price.value.trim()){
+              return
+          }
+          dispatch(post(description.value, price.value))
+          description.value = ''
+          price.value = ''
+        }}>
+      <Typography variant="display2" gutterBottom>
+          Cadastro
+      </Typography>
       <Grid container spacing={16}>
         <Grid item xs={5}>
         <TextField
+          inputRef={node => description = node}
           id="description"
           label="Descrição"
           className={classes.textFieldDesc}
@@ -53,8 +71,10 @@ function ProductForm(props) {
         </Grid>
         <Grid item xs={3}>
         <TextField
+          inputRef={node => price = node}
           id="price"
           label="Preço"
+          placeholder="Ex.: 11.99"
           className={classes.textFieldPrice}
           margin="normal"
           InputProps={{
@@ -63,7 +83,7 @@ function ProductForm(props) {
         />
         </Grid>
         <Grid item xs={2}>
-        <Button variant='fab' color='primary' aria-label='Post' className={classes.button}>
+        <Button type='submit' variant='fab' color='primary' aria-label='Post' className={classes.button}>
           <AddIcon />
         </Button>
         <Button variant='fab' aria-label='Delete' className={classes.buttonDelete}>
@@ -71,7 +91,7 @@ function ProductForm(props) {
         </Button>
         </Grid>
       </Grid>
-    </div>
+    </form>
   );
 }
 
@@ -79,4 +99,5 @@ ProductForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductForm);
+
+export default withStyles(styles)(connect()(ProductForm));

@@ -10,7 +10,8 @@ export function getList() {
     }
 }
 
-export function post() {
+export function post(description, price) {
+    console.log(description, price)
     return {
         type: 'PRODUCT_ADDED'
     }

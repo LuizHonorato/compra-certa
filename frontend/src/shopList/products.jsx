@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ProductForm from './productForm'
+import ProductList from './productList'
 
 const styles = {
   root: {
@@ -47,7 +48,7 @@ class TabMenu extends React.Component {
           <Tab label="Incluir produtos" />
           <Tab label="Meu carrinho" />
         </Tabs>
-        {value === 0 && <TabContainer><ProductForm /></TabContainer>}
+        {value === 0 && <TabContainer><ProductForm /><ProductList /></TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
       </Paper>
     );
