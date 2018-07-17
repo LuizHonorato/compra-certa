@@ -11,8 +11,15 @@ export function getList() {
 }
 
 export function post(description, price) {
-    console.log(description, price)
-    return {
-        type: 'PRODUCT_ADDED'
+    return dispatch => {
+        axios.post(`${BASE_URL}/products`, {description, price})
+        .then(resp => { dispatch(getList()) })
+    }
+}
+
+export function remove(sp) {
+    return dispatch => {
+        axios.delete(`${BASE_URL}/products/${sp._id}`)
+        .then(resp => { dispatch(getList()) })
     }
 }

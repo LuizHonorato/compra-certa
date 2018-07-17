@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ProductForm from './productForm'
 import ProductList from './productList'
+import ProductCart from './productCart'
 
 const styles = {
   root: {
@@ -17,7 +19,7 @@ const styles = {
 
 function TabContainer(props) {
     return (
-      <Typography component="div" style={{ padding: 8 * 3, height: 450 }}>
+      <Typography component="div" style={{ padding: 8 * 3 }}>
         {props.children}
       </Typography>
     );
@@ -33,7 +35,7 @@ class TabMenu extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, cart } = this.props;
     const { value } = this.state;
 
     return (
@@ -41,15 +43,19 @@ class TabMenu extends React.Component {
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
-          indicatorColor="secondary"
-          textColor="secondary"
+          indicatorColor="primary"
+          textColor="primary"
           centered
         >
           <Tab label="Incluir produtos" />
-          <Tab label="Meu carrinho" />
+          <Tab label={`Meu carrinho (${cart.length})`} />
         </Tabs>
-        {value === 0 && <TabContainer><ProductForm /><ProductList /></TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
+        {value === 0 && <TabContainer>
+          <ProductForm />
+          <ProductList /></TabContainer>}
+        {value === 1 && <TabContainer>
+          <ProductCart />
+        </TabContainer>}
       </Paper>
     );
   }
@@ -59,4 +65,5 @@ TabMenu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TabMenu);
+const mapStateToProps = state => ({cart: state.shopList.cart})
+export default withStyles(styles)(connect(mapStateToProps, null)(TabMenu));

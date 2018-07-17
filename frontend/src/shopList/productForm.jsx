@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
 import {post} from './productActions'
 
 const styles = theme => ({
@@ -82,12 +81,9 @@ const ProductForm = ({classes, dispatch}) => {
           }}
         />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
         <Button type='submit' variant='fab' color='primary' aria-label='Post' className={classes.button}>
           <AddIcon />
-        </Button>
-        <Button variant='fab' aria-label='Delete' className={classes.buttonDelete}>
-          <CloseIcon />
         </Button>
         </Grid>
       </Grid>
