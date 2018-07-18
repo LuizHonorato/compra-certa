@@ -18,7 +18,7 @@ function TopBar(props) {
     const {classes} = props
     return (
         <div className={classes.root}>
-            <AppBar position='static' className={classes.topbar}>
+            <AppBar position='absolute' className={classes.topbar}>
                 <Toolbar>
                     <Typography variant='title' color='inherit'>
                         Início

@@ -1,7 +1,10 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import Typography from '@material-ui/core/Typography'
 
 export default props => (
-    <h1>Meu carrinho</h1>
+    <Typography variant="display2" gutterBottom>
+        Meu carrinho
+    </Typography>
 )

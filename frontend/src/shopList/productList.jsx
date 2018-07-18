@@ -24,6 +24,7 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700,
+    marginTop: 20
   },
   buttonDelete: {
     color: '#f44336'
@@ -146,7 +147,7 @@ class ProductList extends Component {
                             className={classes.close}
                             onClick={this.handleClose}>
                             <CloseIcon />
-                            </IconButton>
+                        </IconButton>
                     ]}
                 />
             </div>

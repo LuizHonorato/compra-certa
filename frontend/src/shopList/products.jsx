@@ -12,7 +12,8 @@ import ProductCart from './productCart'
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: 75
   }
   
 };
@@ -39,7 +40,7 @@ class TabMenu extends React.Component {
     const { value } = this.state;
 
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
@@ -56,7 +57,7 @@ class TabMenu extends React.Component {
         {value === 1 && <TabContainer>
           <ProductCart />
         </TabContainer>}
-      </Paper>
+      </div>
     );
   }
 }

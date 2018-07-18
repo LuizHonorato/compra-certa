@@ -3,7 +3,7 @@ import TopBar from '../common/template/appBar'
 import Products from '../shopList/products'
 
 export default props => (
-        <div className='container'>
+        <div>
            <TopBar />
            <Products />
         </div>
