@@ -3,31 +3,26 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import TitlePage from '../common/template/header'
 import {post} from './productActions'
 
 const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
   textFieldDesc: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 500,
+    width: '100%'
   },
   textFieldPrice: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 250,
+    width: '100%'
   },
   button: {
     margin: theme.spacing.unit,
@@ -55,33 +50,31 @@ const ProductForm = ({classes, dispatch}) => {
           description.value = ''
           price.value = ''
         }}>
-      <Typography variant="display2" gutterBottom>
-          Cadastro
-      </Typography>
-      <Grid container spacing={16}>
-        <Grid item xs={5}>
-        <TextField
-          inputRef={node => description = node}
-          id="description"
-          label="Descrição"
-          className={classes.textFieldDesc}
-          margin="normal"
-        />
+        <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <TitlePage label='Cadastro' />
         </Grid>
-        <Grid item xs={3}>
-        <TextField
-          inputRef={node => price = node}
-          id="price"
-          label="Preço"
-          placeholder="Ex.: 11.99"
-          className={classes.textFieldPrice}
-          margin="normal"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">R$</InputAdornment>
-          }}
-        />
+        <Grid item xs={12} md={6}>
+          <TextField
+            inputRef={node => description = node}
+            id="description"
+            label="Descrição"
+            className={classes.textFieldDesc}
+            margin="normal" />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={12} md={3}>
+          <TextField
+            inputRef={node => price = node}
+            id="price"
+            label="Preço"
+            placeholder="Ex.: 11.99"
+            className={classes.textFieldPrice}
+            margin="normal"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>
+            }} />
+        </Grid>
+        <Grid item xs={1}  md={1}>
         <Button type='submit' variant='fab' color='primary' aria-label='Post' className={classes.button}>
           <AddIcon />
         </Button>

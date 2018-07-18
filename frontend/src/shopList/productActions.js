@@ -23,3 +23,10 @@ export function remove(sp) {
         .then(resp => { dispatch(getList()) })
     }
 }
+
+export function addToCart(sp) {
+    console.log(sp)
+    return {
+        type: 'ADDED_TO_CART', sp
+    }
+}

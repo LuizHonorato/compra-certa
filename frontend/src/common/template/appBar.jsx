@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
     root: {
@@ -18,13 +19,17 @@ function TopBar(props) {
     const {classes} = props
     return (
         <div className={classes.root}>
-            <AppBar position='absolute' className={classes.topbar}>
-                <Toolbar>
-                    <Typography variant='title' color='inherit'>
-                        Início
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    <AppBar position='absolute' className={classes.topbar}>
+                        <Toolbar>
+                            <Typography variant='title' color='inherit'>
+                                Início
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                </Grid>
+            </Grid>
         </div>
     )
 }

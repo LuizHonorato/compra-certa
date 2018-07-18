@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Grid from '@material-ui/core/Grid';
 import ProductForm from './productForm'
 import ProductList from './productList'
 import ProductCart from './productCart'
@@ -41,22 +41,26 @@ class TabMenu extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          <Tab label="Incluir produtos" />
-          <Tab label={`Meu carrinho (${cart.length})`} />
-        </Tabs>
-        {value === 0 && <TabContainer>
-          <ProductForm />
-          <ProductList /></TabContainer>}
-        {value === 1 && <TabContainer>
-          <ProductCart />
-        </TabContainer>}
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+            <Tab label="Incluir produtos" />
+            <Tab label={`Meu carrinho (${cart.length})`} />
+          </Tabs>
+          {value === 0 && <TabContainer>
+            <ProductForm />
+            <ProductList /></TabContainer>}
+          {value === 1 && <TabContainer>
+            <ProductCart />
+          </TabContainer>}
+          </Grid>
+        </Grid>
       </div>
     );
   }

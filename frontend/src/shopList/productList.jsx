@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Snackbar from '@material-ui/core/Snackbar';
-import {getList, remove} from './productActions'
+import {getList, remove, addToCart} from './productActions'
 
 const styles = theme => ({
   root: {
@@ -41,6 +41,9 @@ const styles = theme => ({
   close: {
     width: theme.spacing.unit * 4,
     height: theme.spacing.unit * 4,
+  },
+  addedToCart: {
+      textDecoration: 'line-through'
   }
 });
 
@@ -83,9 +86,10 @@ class ProductList extends Component {
         const {classes} = this.props
         const { rowsPerPage, page } = this.state;
         const list = this.props.list || []
+        const cart = this.props.cart
 
         return (
-            <div>
+            <div className={classes.root}>
               <Table className={classes.table}>
                 <TableHead>
                   <TableRow>
@@ -99,10 +103,10 @@ class ProductList extends Component {
                     .map(sp => {
                     return (
                     <TableRow key={sp._id}>
-                        <TableCell>{sp.description}</TableCell>
+                        <TableCell className={cart.includes(sp.description) ? classes.addedToCart : ''}>{sp.description}</TableCell>
                         <TableCell numeric>{`R$ ${sp.price}`}</TableCell>
                         <TableCell className={classes.tableActions}>
-                            <IconButton color="primary" className={classes.buttonCar} aria-label="Add to shopping cart">
+                            <IconButton className={classes.buttonCar} aria-label="Add to shopping cart" onClick={() => this.props.addToCart(sp) }>
                                 <AddShoppingCartIcon />
                             </IconButton>
                             <IconButton className={classes.buttonDelete} aria-label="Delete" onClick={() => [this.props.remove(sp), this.handleClick()] }>
@@ -160,6 +164,6 @@ ProductList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({list: state.shopList.list})
-const mapDispatchToProps = dispatch => bindActionCreators({getList, remove}, dispatch)
+const mapStateToProps = state => ({list: state.shopList.list, cart: state.shopList.cart})
+const mapDispatchToProps = dispatch => bindActionCreators({getList, remove, addToCart}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductList));
