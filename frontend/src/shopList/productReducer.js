@@ -7,7 +7,8 @@ export default (state = initialState, action) => {
         case 'ADDED_TO_CART':
             return {...state, cart: [...state.cart, action.sp] }
         case 'CHANGE_QUANT':
-            return {...state, quant: +action.payload}
+            console.log(state.cart[action.index]._id === action.id)
+            return {...state, quant: +action.payload }
         case 'REMOVE_FROM_CART':
             return {...state, cart: [...state.cart.slice(0, action.index), ...state.cart.slice(action.index + 1 ) ]}
         default:

@@ -15,7 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import TitlePage from '../common/template/header'
-import {removeFromCart} from './productActions'
+import {removeFromCart, countQuant, getIndex} from './productActions'
 
 const styles = theme => ({
   table: {
@@ -97,19 +97,16 @@ class ProductCart extends Component {
                   {cart.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((ic, index) => {
                     return (
-                    <TableRow key={ic._id}>
+                    <TableRow key={index}>
                         <TableCell>{ic.description}</TableCell>
                         <TableCell numeric>{`R$ ${ic.price}`}</TableCell>
                         <TableCell numeric>
                             <TextField
-                                id="number"
+                                id={ic._id}
                                 type="number"
-                                value={this.state.quant}
-                                onChange={this.handleChangeQuant('quant')}
+                                value={this.props.quant}
+                                onChange={this.props.countQuant(index)}
                                 className={classes.textField}
-                                InputLabelProps={{
-                                shrink: true
-                                }}
                                 margin="normal" />
                         </TableCell>
                         <TableCell numeric>{ic.price * this.state.quant}</TableCell>
@@ -169,6 +166,6 @@ ProductCart.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({cart: state.shopList.cart})
-const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart}, dispatch)
+const mapStateToProps = state => ({cart: state.shopList.cart, quant: state.shopList.quant})
+const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart, countQuant, getIndex}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductCart));
