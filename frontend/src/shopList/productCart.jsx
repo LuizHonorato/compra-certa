@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,23 +12,18 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import TitlePage from '../common/template/header'
-import {getList, remove} from './productActions'
+import {removeFromCart} from './productActions'
 
 const styles = theme => ({
   table: {
     minWidth: 700,
     marginTop: 20
   },
-  buttonDelete: {
-    color: '#f44336'
-  },
-  buttonCar: {
-      color: '#4caf50'
-  },
-  buttonEdit: {
-    color: '#ffc107'
+  textField: {
+    width: 60
   },
   tableActions: {
     width: 150
@@ -35,6 +31,9 @@ const styles = theme => ({
   close: {
     width: theme.spacing.unit * 4,
     height: theme.spacing.unit * 4,
+  },
+  button: {
+    margin: theme.spacing.unit,
   }
 });
 
@@ -46,12 +45,9 @@ class ProductCart extends Component {
         this.state = {
             page : 0,
             rowsPerPage : 5,
-            open: false
+            open: false, 
+            quant: 1
         }
-    }
-
-    componentWillMount() {
-        this.props.getList()
     }
 
     handleChangePage = (event, page) => {
@@ -61,6 +57,12 @@ class ProductCart extends Component {
     handleChangeRowsPerPage = event => {
         this.setState({rowsPerPage: event.target.value})
     }
+
+    handleChangeQuant = name => event => {
+        this.setState({
+            [name]: event.target.value
+        })
+    } 
 
     handleClick = () => {
         this.setState({open: true})
@@ -88,17 +90,34 @@ class ProductCart extends Component {
                     <TableCell numeric>Preço</TableCell>
                     <TableCell numeric>Quantidade</TableCell>
                     <TableCell numeric>Subtotal</TableCell>
+                    <TableCell>Ações</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {cart.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map(ic => {
+                    .map((ic, index) => {
                     return (
                     <TableRow key={ic._id}>
                         <TableCell>{ic.description}</TableCell>
                         <TableCell numeric>{`R$ ${ic.price}`}</TableCell>
-                        <TableCell numeric></TableCell>
-                        <TableCell numeric></TableCell>
+                        <TableCell numeric>
+                            <TextField
+                                id="number"
+                                type="number"
+                                value={this.state.quant}
+                                onChange={this.handleChangeQuant('quant')}
+                                className={classes.textField}
+                                InputLabelProps={{
+                                shrink: true
+                                }}
+                                margin="normal" />
+                        </TableCell>
+                        <TableCell numeric>{ic.price * this.state.quant}</TableCell>
+                        <TableCell>
+                            <IconButton className={classes.button} aria-label="Delete" onClick={() => this.props.removeFromCart(index) }>
+                                <DeleteIcon />
+                            </IconButton>
+                        </TableCell>
                     </TableRow>
                     );
                 })}
@@ -151,5 +170,5 @@ ProductCart.propTypes = {
 };
 
 const mapStateToProps = state => ({cart: state.shopList.cart})
-const mapDispatchToProps = dispatch => bindActionCreators({getList, remove}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductCart));

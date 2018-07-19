@@ -50,7 +50,7 @@ const ProductForm = ({classes, dispatch}) => {
           description.value = ''
           price.value = ''
         }}>
-        <Grid container spacing={24}>
+        <Grid container spacing={16}>
         <Grid item xs={12}>
           <TitlePage label='Cadastro' />
         </Grid>

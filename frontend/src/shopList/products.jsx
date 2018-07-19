@@ -41,8 +41,8 @@ class TabMenu extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
+        <Grid container spacing={16}>
+          <Grid item xs={12} sm={12} md={12}>
             <Tabs
               value={this.state.value}
               onChange={this.handleChange}

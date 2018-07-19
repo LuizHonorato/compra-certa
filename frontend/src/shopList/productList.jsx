@@ -55,7 +55,8 @@ class ProductList extends Component {
         this.state = {
             page : 0,
             rowsPerPage : 5,
-            open: false
+            openDelMsg: false,
+            openCartMsg: false
         }
     }
 
@@ -71,15 +72,26 @@ class ProductList extends Component {
         this.setState({rowsPerPage: event.target.value})
     }
 
-    handleClick = () => {
-        this.setState({open: true})
+    handleClickDel = () => {
+        this.setState({openDelMsg: true})
     }
 
-    handleClose = (event, reason) => {
+    handleClickCart = () => {
+        this.setState({openCartMsg: true})
+    }
+
+    handleCloseDel = (event, reason) => {
         if (reason === 'clickaway') {
             return
         } 
-        this.setState({open: false})
+        this.setState({openDelMsg: false})
+    }
+
+    handleCloseCart = (event, reason) => {
+        if (reason === 'clickaway') {
+            return
+        } 
+        this.setState({openCartMsg: false})
     }
 
     render() {
@@ -103,13 +115,13 @@ class ProductList extends Component {
                     .map(sp => {
                     return (
                     <TableRow key={sp._id}>
-                        <TableCell className={cart.includes(sp.description) ? classes.addedToCart : ''}>{sp.description}</TableCell>
+                        <TableCell className={(cart.some(function(el) {return el.description === sp.description })) ? classes.addedToCart : ''}>{sp.description}</TableCell>
                         <TableCell numeric>{`R$ ${sp.price}`}</TableCell>
                         <TableCell className={classes.tableActions}>
-                            <IconButton className={classes.buttonCar} aria-label="Add to shopping cart" onClick={() => this.props.addToCart(sp) }>
+                            <IconButton className={classes.buttonCar} aria-label="Add to shopping cart" onClick={() => [this.props.addToCart(sp), this.handleClickCart()] }>
                                 <AddShoppingCartIcon />
                             </IconButton>
-                            <IconButton className={classes.buttonDelete} aria-label="Delete" onClick={() => [this.props.remove(sp), this.handleClick()] }>
+                            <IconButton className={classes.buttonDelete} aria-label="Delete" onClick={() => [this.props.remove(sp), this.handleClickDel()] }>
                                 <DeleteIcon />
                             </IconButton>
                         </TableCell>
@@ -124,10 +136,10 @@ class ProductList extends Component {
                 rowsPerPage={rowsPerPage}
                 page={page}
                 backIconButtonProps={{
-                    'aria-label': 'Previous Page',
+                    'aria-label': 'Página anterior',
                 }}
                 nextIconButtonProps={{
-                    'aria-label': 'Next Page',
+                    'aria-label': 'Próxima página',
                 }}
                 onChangePage={this.handleChangePage}
                 onChangeRowsPerPage={this.handleChangeRowsPerPage}/>
@@ -136,7 +148,7 @@ class ProductList extends Component {
                     vertical: 'bottom',
                     horizontal: 'left',
                     }}
-                    open={this.state.open}
+                    open={this.state.openDelMsg}
                     autoHideDuration={6000}
                     onClose={this.handleClose}
                     ContentProps={{
@@ -149,15 +161,35 @@ class ProductList extends Component {
                             aria-label="Close"
                             color="inherit"
                             className={classes.close}
-                            onClick={this.handleClose}>
+                            onClick={this.handleCloseDel}>
                             <CloseIcon />
                         </IconButton>
-                    ]}
-                />
+                    ]} />
+                <Snackbar
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                    open={this.state.openCartMsg}
+                    autoHideDuration={6000}
+                    onClose={this.handleCloseCart}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                     }}
+                    message={<span id="message-id">Produto adicionado ao carrinho.</span>}
+                    action={[
+                        <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleCloseCart}>
+                            <CloseIcon />
+                        </IconButton>
+                    ]}/>
             </div>
-          );
+        );
     }
-  
 }
 
 ProductList.propTypes = {

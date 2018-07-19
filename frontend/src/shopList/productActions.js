@@ -25,8 +25,21 @@ export function remove(sp) {
 }
 
 export function addToCart(sp) {
-    console.log(sp)
     return {
         type: 'ADDED_TO_CART', sp
+    }
+}
+
+export function countQuant(event) {
+    return {
+        type: 'CHANGE_QUANT',
+        payload: event.target.value
+    }
+}
+
+export function removeFromCart(index) {
+    return {
+        type: 'REMOVE_FROM_CART',
+        index
     }
 }
