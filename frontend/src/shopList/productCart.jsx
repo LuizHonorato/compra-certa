@@ -15,7 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import TitlePage from '../common/template/header'
-import {removeFromCart, countQuant, getIndex} from './productActions'
+import {removeFromCart} from './productActions'
 
 const styles = theme => ({
   table: {
@@ -102,10 +102,10 @@ class ProductCart extends Component {
                         <TableCell numeric>{`R$ ${ic.price}`}</TableCell>
                         <TableCell numeric>
                             <TextField
-                                id={ic._id}
+                                id='quant'
                                 type="number"
-                                value={this.props.quant}
-                                onChange={this.props.countQuant(index)}
+                                value={this.state.quant}
+                                onChange={this.handleChangeQuant('quant')}
                                 className={classes.textField}
                                 margin="normal" />
                         </TableCell>
@@ -166,6 +166,6 @@ ProductCart.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({cart: state.shopList.cart, quant: state.shopList.quant})
-const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart, countQuant, getIndex}, dispatch)
+const mapStateToProps = state => ({cart: state.shopList.cart})
+const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductCart));
