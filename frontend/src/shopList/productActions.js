@@ -30,12 +30,11 @@ export function addToCart(sp) {
     }
 }
 
-export const countQuant = event => ({
-    type: 'CHANGE_QUANT',
-    payload: event.target.value,
-    id: event.target.id,
-    index: event.target.name     
-})
+export function countQuant(ic) {
+    return {
+        type: 'COUNT_QUANT', ic
+    }
+}
 
 export function removeFromCart(index) {
     return {
