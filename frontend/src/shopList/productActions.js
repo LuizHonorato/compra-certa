@@ -30,9 +30,12 @@ export function addToCart(sp) {
     }
 }
 
-export function countQuant(ic) {
+export const countQuant = (event, index, quantity) => {
     return {
-        type: 'COUNT_QUANT', ic
+        type: 'COUNT_QUANT',
+        payload: event.target.value,
+        index,
+        quantity
     }
 }
 

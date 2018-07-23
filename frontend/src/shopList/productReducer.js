@@ -9,12 +9,13 @@ export default (state = initialState, action) => {
         case 'ADDED_TO_CART':
             return {...state, cart: [...state.cart, action.sp] }
         case 'COUNT_QUANT':
-            console.log(action.ic)
-            return Object.assign(
-                [...state],
-                {[action.ic]:
-                    Object.assign({}, state.quantity, {quantity: +state.quantity})}
-            )
+            return update(state, {
+                cart: {
+                    [action.index]: {
+                        quantity: { $set: action.payload }
+                    }
+                }
+            })
         case 'REMOVE_FROM_CART':
             return {...state, cart: [...state.cart.slice(0, action.index), ...state.cart.slice(action.index + 1 ) ]}
         default:

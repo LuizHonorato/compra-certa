@@ -46,7 +46,7 @@ class ProductCart extends Component {
             page : 0,
             rowsPerPage : 5,
             open: false, 
-            quant: ''
+            quant: 1
         }
     }
 
@@ -57,12 +57,6 @@ class ProductCart extends Component {
     handleChangeRowsPerPage = event => {
         this.setState({rowsPerPage: event.target.value})
     }
-
-    handleChangeQuant = name => event => {
-        this.setState({
-            [name]: event.target.value
-        })
-    } 
 
     handleClick = () => {
         this.setState({open: true})
@@ -102,14 +96,14 @@ class ProductCart extends Component {
                         <TableCell numeric>{`R$ ${ic.price}`}</TableCell>
                         <TableCell numeric>
                             <TextField
-                                id={`quant-${index}`}
+                                id='quant'
                                 type="number"
-                                value={this.props.quantity}
-                                onChange={() => this.props.countQuant(ic)}
+                                value={ic.quantity}
+                                onChange={(e) => this.props.countQuant(e, index, ic.quantity)}
                                 className={classes.textField}
                                 margin="normal" />
                         </TableCell>
-                        <TableCell numeric>{ic.price * this.state.quant}</TableCell>
+                        <TableCell numeric>{ic.price * ic.quantity}</TableCell>
                         <TableCell>
                             <IconButton className={classes.button} aria-label="Delete" onClick={() => this.props.removeFromCart(index) }>
                                 <DeleteIcon />
