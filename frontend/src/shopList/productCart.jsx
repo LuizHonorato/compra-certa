@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -18,6 +20,9 @@ import TitlePage from '../common/template/header'
 import {removeFromCart, countQuant} from './productActions'
 
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
   table: {
     minWidth: 700,
     marginTop: 20
@@ -34,6 +39,12 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    width: '100%'
+  },
+  total: {
+    justifyContent: 'center',
+    marginTop: 20,
+    fontSize: 24
   }
 });
 
@@ -73,6 +84,7 @@ class ProductCart extends Component {
         const {classes} = this.props
         const { rowsPerPage, page } = this.state;
         const cart = this.props.cart || []
+        let total = this.props.total
 
         return (
             <div>
@@ -150,6 +162,20 @@ class ProductCart extends Component {
                         </IconButton>
                     ]}
                 />
+                <div className={classes.root}>
+                    <Grid container spacing={24} justify='flex-end'>
+                        <Grid item xs={12} md={3} className={classes.total}>
+                            Total: {total}
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={24} justify='center'>
+                        <Grid item xs={12} md={3}>
+                            <Button variant="contained" color="primary" className={classes.button}>
+                                Finalizar compra
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
             </div>
           );
     }
@@ -160,6 +186,6 @@ ProductCart.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({cart: state.shopList.cart, quantity: state.shopList.quantity})
+const mapStateToProps = state => ({cart: state.shopList.cart, quantity: state.shopList.quantity, total: state.shopList.total})
 const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart, countQuant}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductCart));

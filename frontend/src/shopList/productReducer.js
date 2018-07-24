@@ -1,6 +1,6 @@
 import update from 'immutability-helper'
 
-const initialState = {list: [], total: 0, quantity: 1, cart: []}
+const initialState = {list: [], total: 0.00, quantity: 1, cart: []}
 
 export default (state = initialState, action) => {
     switch (action.type) {
