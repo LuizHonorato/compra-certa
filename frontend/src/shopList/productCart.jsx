@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
+import Hidden from '@material-ui/core/Hidden';
 import TitlePage from '../common/template/header'
 import {removeFromCart, countQuant} from './productActions'
 
@@ -85,6 +86,7 @@ class ProductCart extends Component {
         const { rowsPerPage, page } = this.state;
         const cart = this.props.cart || []
         let total = this.props.total
+        const formato = {style: 'currency', currency: 'BRL'}
 
         return (
             <div>
@@ -96,6 +98,9 @@ class ProductCart extends Component {
                     <TableCell numeric>Preço</TableCell>
                     <TableCell numeric>Quantidade</TableCell>
                     <TableCell numeric>Subtotal</TableCell>
+                    <Hidden xsUp mdUp smUp lgUp xlUp>
+                        <TableCell numeric>Total</TableCell>
+                    </Hidden>
                     <TableCell>Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -105,7 +110,7 @@ class ProductCart extends Component {
                     return (
                     <TableRow key={index}>
                         <TableCell>{ic.description}</TableCell>
-                        <TableCell numeric>{`R$ ${ic.price}`}</TableCell>
+                        <TableCell numeric>{ic.price.toLocaleString('pt-BR', formato )}</TableCell>
                         <TableCell numeric>
                             <TextField
                                 id='quant'
@@ -115,7 +120,10 @@ class ProductCart extends Component {
                                 className={classes.textField}
                                 margin="normal" />
                         </TableCell>
-                        <TableCell numeric>{ic.price * ic.quantity}</TableCell>
+                        <TableCell numeric>{(ic.price * ic.quantity).toLocaleString('pt-BR', formato )}</TableCell>
+                        <Hidden xsUp mdUp smUp lgUp xlUp>
+                            <TableCell numeric hidden>{total += ic.price * ic.quantity}</TableCell>
+                        </Hidden>
                         <TableCell>
                             <IconButton className={classes.button} aria-label="Delete" onClick={() => this.props.removeFromCart(index) }>
                                 <DeleteIcon />
@@ -165,12 +173,12 @@ class ProductCart extends Component {
                 <div className={classes.root}>
                     <Grid container spacing={24} justify='flex-end'>
                         <Grid item xs={12} md={3} className={classes.total}>
-                            Total: {total}
+                            Total: {total.toLocaleString('pt-BR', formato )}
                         </Grid>
                     </Grid>
                     <Grid container spacing={24} justify='center'>
                         <Grid item xs={12} md={3}>
-                            <Button variant="contained" color="primary" className={classes.button}>
+                            <Button variant="contained" color="primary" className={classes.button} disabled={!cart.length} >
                                 Finalizar compra
                             </Button>
                         </Grid>

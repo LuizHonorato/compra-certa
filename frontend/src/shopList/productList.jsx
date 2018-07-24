@@ -99,6 +99,7 @@ class ProductList extends Component {
         const { rowsPerPage, page } = this.state;
         const list = this.props.list || []
         const cart = this.props.cart
+        const formato = {style: 'currency', currency: 'BRL'}
 
         return (
             <div className={classes.root}>
@@ -116,7 +117,7 @@ class ProductList extends Component {
                     return (
                     <TableRow key={sp._id}>
                         <TableCell className={(cart.some(function(el) {return el.description === sp.description })) ? classes.addedToCart : ''}>{sp.description}</TableCell>
-                        <TableCell numeric>{`R$ ${sp.price}`}</TableCell>
+                        <TableCell numeric>{sp.price.toLocaleString('pt-BR', formato )}</TableCell>
                         <TableCell className={classes.tableActions}>
                             <IconButton className={classes.buttonCar} aria-label="Add to shopping cart" onClick={() => [this.props.addToCart(sp), this.handleClickCart()] }>
                                 <AddShoppingCartIcon />
