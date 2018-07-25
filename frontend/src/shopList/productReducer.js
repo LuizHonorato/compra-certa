@@ -18,6 +18,9 @@ export default (state = initialState, action) => {
             })
         case 'REMOVE_FROM_CART':
             return {...state, cart: [...state.cart.slice(0, action.index), ...state.cart.slice(action.index + 1 ) ]}
+        case 'CHECKOUT_REQUEST':
+            let msg = alert('Obrigado por comprar conosco! Volte sempre!')
+            return {...state, cart: [], msg}
         default:
             return state
     }

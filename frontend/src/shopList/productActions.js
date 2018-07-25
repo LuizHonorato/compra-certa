@@ -14,6 +14,7 @@ export function post(description, price) {
     return dispatch => {
         axios.post(`${BASE_URL}/products`, {description, price})
         .then(resp => { dispatch(getList()) })
+        .catch(e => {e.response.data.errors.forEach(error => console.log('Erro', error))})
     }
 }
 
@@ -21,6 +22,7 @@ export function remove(sp) {
     return dispatch => {
         axios.delete(`${BASE_URL}/products/${sp._id}`)
         .then(resp => { dispatch(getList()) })
+        .catch(e => {e.response.data.errors.forEach(error => console.log('Erro', error))})
     }
 }
 
@@ -43,5 +45,11 @@ export function removeFromCart(index) {
     return {
         type: 'REMOVE_FROM_CART',
         index
+    }
+}
+
+export function checkout() {
+    return {
+        type: 'CHECKOUT_REQUEST'
     }
 }

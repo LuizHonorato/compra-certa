@@ -18,7 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import Hidden from '@material-ui/core/Hidden';
 import TitlePage from '../common/template/header'
-import {removeFromCart, countQuant} from './productActions'
+import {removeFromCart, countQuant, checkout} from './productActions'
 
 const styles = theme => ({
   root: {
@@ -90,7 +90,13 @@ class ProductCart extends Component {
 
         return (
             <div>
-            <TitlePage label='Meu Carrinho' />
+            <div className={classes.root}>
+                <Grid container spacing={24}>
+                    <Grid item xs={12}>   
+                        <TitlePage label='Meu Carrinho' />
+                    </Grid>
+                </Grid>
+            </div> 
               <Table className={classes.table}>
                 <TableHead>
                   <TableRow>
@@ -178,7 +184,8 @@ class ProductCart extends Component {
                     </Grid>
                     <Grid container spacing={24} justify='center'>
                         <Grid item xs={12} md={3}>
-                            <Button variant="contained" color="primary" className={classes.button} disabled={!cart.length} >
+                            <Button variant="contained" color="primary" className={classes.button} disabled={!cart.length} 
+                                onClick={() => this.props.checkout()}>
                                 Finalizar compra
                             </Button>
                         </Grid>
@@ -195,5 +202,5 @@ ProductCart.propTypes = {
 };
 
 const mapStateToProps = state => ({cart: state.shopList.cart, quantity: state.shopList.quantity, total: state.shopList.total})
-const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart, countQuant}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({removeFromCart, countQuant, checkout}, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ProductCart));

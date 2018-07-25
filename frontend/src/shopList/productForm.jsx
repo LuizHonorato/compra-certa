@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TitlePage from '../common/template/header'
@@ -34,6 +35,30 @@ const styles = theme => ({
   }
 });
 
+function NumberFormatCustom(props) {
+  const {onChange, inputRef} = props
+
+  return (
+    <NumberFormat
+      ref={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value
+          },
+        });
+      }}
+      thousandSeparator
+      prefix="R$"
+    />
+  );
+}
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
+}
+
 const ProductForm = ({classes, dispatch}) => {
   
   let description
@@ -46,7 +71,7 @@ const ProductForm = ({classes, dispatch}) => {
           if(!description.value.trim() || !price.value.trim()){
               return
           }
-          dispatch(post(description.value, price.value))
+          dispatch(post(description.value, price.value.replace(/,/g, '.')))
           description.value = ''
           price.value = ''
         }}>
@@ -67,7 +92,7 @@ const ProductForm = ({classes, dispatch}) => {
             inputRef={node => price = node}
             id="price"
             label="Preço"
-            placeholder="Ex.: 11.99"
+            placeholder="Ex.: 1,99"
             className={classes.textFieldPrice}
             margin="normal"
             InputProps={{
