@@ -1,10 +1,10 @@
 import React from 'react'
 import TopBar from '../common/template/appBar'
-import Products from '../shopList/products'
+import Routes from './routes'
 
 export default props => (
         <div>
            <TopBar />
-           <Products />
+           <Routes />
         </div>
 )
