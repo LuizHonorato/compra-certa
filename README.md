@@ -36,14 +36,13 @@ Para executar o aplicativo é necessário instalar o banco de dados NoSQL MongoD
 Em uma nova aba do terminal, no diretório de sua escolha siga os seguintes passos:
 
 - git clone https://github.com/LuizHonorato/compra-certa.git
-- Entre na pasta backend e execute o seguinte comando: 
-  npm i
-Após todas as dependências serem instaladas, execute o comando:
+
+- Entre na pasta backend e execute o seguinte comando: npm i
+- Após todas as dependências serem instaladas, execute o comando:
 - npm run dev (ou npm run production para ambientes de produção);
 
-- Em uma nova aba do terminal entre na pasta frontend e execute o seguinte comando:
-  npm i
-Após todas as dependências serem instaladas, execute o comando:
+- Em uma nova aba do terminal entre na pasta frontend e execute o seguinte comando: npm i
+- Após todas as dependências serem instaladas, execute o comando:
 - npm start
 
 
