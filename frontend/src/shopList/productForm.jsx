@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TitlePage from '../common/template/header'
@@ -34,30 +33,6 @@ const styles = theme => ({
     color: "#fff"
   }
 });
-
-function NumberFormatCustom(props) {
-  const {onChange, inputRef} = props
-
-  return (
-    <NumberFormat
-      ref={inputRef}
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value
-          },
-        });
-      }}
-      thousandSeparator
-      prefix="R$"
-    />
-  );
-}
-
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
-}
 
 const ProductForm = ({classes, dispatch}) => {
   
