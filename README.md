@@ -38,12 +38,10 @@ Em uma nova aba do terminal, no diretório de sua escolha siga os seguintes pass
 - git clone https://github.com/LuizHonorato/compra-certa.git
 
 - Entre na pasta backend e execute o seguinte comando: npm i
-- Após todas as dependências serem instaladas, execute o comando:
-- npm run dev (ou npm run production para ambientes de produção);
+- Após todas as dependências serem instaladas, execute o comando: npm run dev (ou npm run production para ambientes de produção);
 
 - Em uma nova aba do terminal entre na pasta frontend e execute o seguinte comando: npm i
-- Após todas as dependências serem instaladas, execute o comando:
-- npm start
+- Após todas as dependências serem instaladas, execute o comando: npm start
 
 
 # Screenshots
