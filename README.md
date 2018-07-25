@@ -21,6 +21,6 @@ No diretória de sua escolha siga os seguintes passos:
 
 # Screenshots
 
-<p><img src="images/print-todoapp-1.PNG" /></p>
-<p><img src="images/print-todoapp-2.PNG" /></p>
-<p><img src="images/print-todoapp-3.PNG" /></p>
+<p><img src="images/compra-certa-1.PNG" /></p>
+<p><img src="images/compra-certa-2.PNG" /></p>
+<p><img src="images/compra-certa-3.PNG" /></p>
